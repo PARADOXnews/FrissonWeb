@@ -13,6 +13,7 @@ import { useActiveTab } from "@/components/Context/ActiveTabContext";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import CreatePlaylistCard from "@/components/CreatePlaylistCard/CreatePlaylistCard";
+import FakePlayListPage from "./fakepage";
 import "@/styles/defaults/default.scss";
 import "@/styles/defaults/defaultGrid.scss";
 
@@ -64,6 +65,19 @@ export default function PlaylistPage() {
               />
             ))}
           </div>
+
+
+
+
+
+
+          <FakePlayListPage />
+
+
+
+
+
+
         </>
       )}
 
