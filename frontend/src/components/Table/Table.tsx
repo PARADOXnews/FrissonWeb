@@ -51,10 +51,10 @@ export default function Table() {
 
       {activeTab === 2 && (
         <div className={styles.album}>
-          <AlbumCard title="no information" imageUrl={albumPhoto} />
-          <AlbumCard title="no information" imageUrl={albumPhoto} />
-          <AlbumCard title="no information" imageUrl={albumPhoto} />
-          <AlbumCard title="no information" imageUrl={albumPhoto} />
+          <AlbumCard title="no information" coverUrl={albumPhoto} />
+          <AlbumCard title="no information" coverUrl={albumPhoto} />
+          <AlbumCard title="no information" coverUrl={albumPhoto} />
+          <AlbumCard title="no information" coverUrl={albumPhoto} />
         </div>
       )}
 
