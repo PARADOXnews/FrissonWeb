@@ -18,7 +18,7 @@ import {
 import axios from "axios";
 
 type Song = {
-  id: any;
+  id: number |string;
   image: string;
   title: string;
   albumId: string;
@@ -26,17 +26,13 @@ type Song = {
   artist?: string;
 };
 
-
-
-
 export default function SongListTable() {
+  axios
+    .get("http://localhost:4000/music")
+    .then((res) => setSongs(res.data))
+    .catch((err) => console.error(err));
 
-  axios.get("http://localhost:4000/music")
-    .then(res => setSongs(res.data))
-    .catch(err => console.error(err))
-
-
-  const [songs, setSongs] = useState<Song[]>([])
+  const [songs, setSongs] = useState<Song[]>([]);
 
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeRowId, setActiveRowId] = useState<number | string | null>(null);
@@ -132,7 +128,12 @@ export default function SongListTable() {
               <td className={styles.songId}>{i + 1}</td>
               <td className={styles.songName}>
                 <div className={styles.imageWrapper}>
-                  <Image src={song.image || photo} alt={song.title ?? "song"} width={48} height={48}/>
+                  <Image
+                    src={song.image || photo}
+                    alt={song.title ?? "song"}
+                    width={48}
+                    height={48}
+                  />
                 </div>
                 <div className={styles.songNameBox}>
                   <span className={styles.songNameText}>{song.title}</span>

@@ -25,6 +25,7 @@ interface AlbumCardProps {
   coverUrl: string | StaticImageData;
   onClick?: () => void;
   hideHoverEfect?: boolean;
+  artist?: string;
 }
 
 export default function AlbumCard({

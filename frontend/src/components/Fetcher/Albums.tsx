@@ -7,7 +7,7 @@ import "../../styles/Defaults/defaultGrid.scss";
 
 interface Album {
   id: number;
-  title:string;
+  title: string;
   artistName: string;
   coverUrl: string;
 }
@@ -39,7 +39,6 @@ const Albums: React.FC<AlbumsProps> = ({ onClick }) => {
           title={album.title}
           artistName={album.artistName}
           coverUrl={album.coverUrl}
-
           onClick={onClick} // <- pass the prop
         />
       ))}
