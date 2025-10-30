@@ -64,7 +64,7 @@ export default function ArtistPage() {
             verified
             plays={`745,090 fans`}
           />
-          <SongListTable />
+          <Table />
         </>
       )}
     </main>

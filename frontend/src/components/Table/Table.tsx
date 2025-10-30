@@ -5,8 +5,8 @@ import axios from "axios";
 import Image from "next/image";
 import styles from "./Table.module.scss";
 
-import AlbumCard from "../AlbumCard/AlbumCard";
 import SongListTable from "../SongListTable/SongListTable";
+import AlbumCard from "../AlbumCard/AlbumCard";
 
 // your image should be at: frontend/public/Images/table/albumphoto.png
 const albumPhoto = "/Images/table/albumphoto.png";
@@ -49,14 +49,14 @@ export default function Table() {
       {/* Table */}
       {activeTab === 1 && <SongListTable />}
 
-      {/* {activeTab === 2 && (
+      {activeTab === 2 && (
         <div className={styles.album}>
           <AlbumCard title="no information" imageUrl={albumPhoto} />
           <AlbumCard title="no information" imageUrl={albumPhoto} />
           <AlbumCard title="no information" imageUrl={albumPhoto} />
           <AlbumCard title="no information" imageUrl={albumPhoto} />
         </div>
-      )} */}
+      )}
 
       {activeTab === 3 && (
         <div className={styles.bio}>
