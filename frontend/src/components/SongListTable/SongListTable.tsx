@@ -18,7 +18,7 @@ import {
 import axios from "axios";
 
 type Song = {
-  id: number | string;
+  id: any;
   image: string;
   title: string;
   albumId: string;
