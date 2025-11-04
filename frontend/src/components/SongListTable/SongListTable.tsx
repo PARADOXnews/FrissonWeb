@@ -27,10 +27,13 @@ type Song = {
 };
 
 export default function SongListTable() {
+useEffect(() => {
   axios
     .get("http://localhost:4000/music")
     .then((res) => setSongs(res.data))
     .catch((err) => console.error(err));
+}, []);
+
 
   const [songs, setSongs] = useState<Song[]>([]);
 
