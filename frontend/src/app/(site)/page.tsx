@@ -79,7 +79,7 @@ export default function Home() {
               key={i}
               title="Of Monsters And Men"
               artist="Fever Dream"
-              imageUrl="/Images/AlbumCard/AlbumPhoto.jpg"
+              coverUrl="/Images/AlbumCard/AlbumPhoto.jpg"
             />
           ))}
         </div>

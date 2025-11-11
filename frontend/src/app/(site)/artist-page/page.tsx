@@ -10,7 +10,6 @@ import { usePathname } from "next/navigation";
 import { useActiveTab } from "@/components/Context/ActiveTabContext";
 import ArtistCard from "@/components/ArtistCard/ArtistCard";
 import axios from "axios";
-import SongListTable from "@/components/SongListTable/SongListTable";
 
 export default function ArtistPage() {
   const pathname = usePathname();
@@ -64,7 +63,7 @@ export default function ArtistPage() {
             verified
             plays={`745,090 fans`}
           />
-          <SongListTable />
+          <Table />
         </>
       )}
     </main>

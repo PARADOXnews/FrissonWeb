@@ -21,13 +21,16 @@ import {
 
 interface AlbumCardProps {
   title?: string;
+  album:any;
   artistName?: string;
   coverUrl: string | StaticImageData;
   onClick?: () => void;
   hideHoverEfect?: boolean;
+  artist?: string;
 }
 
 export default function AlbumCard({
+  album,
   title,
   artistName,
   coverUrl,
@@ -37,6 +40,7 @@ export default function AlbumCard({
   const [isHovered, setIsHovered] = useState(false);
   const [isLiked, setIsLiked] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  console.log(album)
 
   const { refs, floatingStyles, context } = useFloating({
     open: isMenuOpen,

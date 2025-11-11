@@ -1,11 +1,11 @@
 "use client";
 
 import NewsComponent from "@/components/NewsComponent/NewsComponent";
-import SongListTable from "@/components/SongListTable/SongListTable";
 import Albums from "@/components/Fetcher/Albums";
 import "../../../styles/Defaults/defaultGrid.scss";
 import "../../../styles/Defaults/default.scss";
 import { useActiveTab } from "@/components/Context/ActiveTabContext";
+import Table from "@/components/Table/Table";
 
 export default function AlbumPage() {
   const { activeTab, setActiveTab } = useActiveTab();
@@ -21,7 +21,7 @@ export default function AlbumPage() {
             title="Seek For Marktoop"
             imageUrl="/Images/NewsComponent/banner.jpg"
           />
-          <SongListTable />
+          <Table />
         </div>
       )}
     </div>

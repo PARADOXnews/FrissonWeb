@@ -7,7 +7,8 @@ import "../../styles/Defaults/defaultGrid.scss";
 
 interface Album {
   id: number;
-  title:string;
+  albumId:string|number;
+  title: string;
   artistName: string;
   coverUrl: string;
 }
@@ -34,12 +35,12 @@ const Albums: React.FC<AlbumsProps> = ({ onClick }) => {
   return (
     <div className="Grid">
       {albums.map((album) => (
-        <AlbumCard
+        <AlbumCard // 
           key={album.id}
+          album={album}
           title={album.title}
           artistName={album.artistName}
           coverUrl={album.coverUrl}
-
           onClick={onClick} // <- pass the prop
         />
       ))}
