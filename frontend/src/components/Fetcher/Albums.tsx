@@ -4,10 +4,11 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import AlbumCard from "@/components/AlbumCard/AlbumCard";
 import "../../styles/Defaults/defaultGrid.scss";
+import Link from "next/link";
 
 interface Album {
   id: number;
-  albumId:string|number;
+  albumId: string | number;
   title: string;
   artistName: string;
   coverUrl: string;
@@ -33,16 +34,17 @@ const Albums: React.FC<AlbumsProps> = ({ onClick }) => {
   }, []);
 
   return (
-    <div className="Grid">
+    <div className={`Grid`}>
       {albums.map((album) => (
-        <AlbumCard // 
-          key={album.id}
-          album={album}
-          title={album.title}
-          artistName={album.artistName}
-          coverUrl={album.coverUrl}
-          onClick={onClick} // <- pass the prop
-        />
+      <Link href={`album-page/${album.id}`}  key={album.id}>
+          <AlbumCard // 
+            album={album}
+            title={album.title}
+            artistName={album.artistName}
+            coverUrl={album.coverUrl}
+            onClick={onClick} // <- pass the prop
+          />
+        </Link>
       ))}
     </div>
   );
