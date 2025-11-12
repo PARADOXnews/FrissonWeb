@@ -28,7 +28,8 @@ interface AlbumCardProps {
   hideHoverEfect?: boolean;
   artist?: string;
 }
-
+// axios get album-page/id 
+// changable id 
 export default function AlbumCard({
   album,
   title,
@@ -75,7 +76,7 @@ export default function AlbumCard({
     }
   }, [refs, isMenuOpen]);
 
-  return (
+  return ( // user router for changing pages
     <div
       className={`${styles.card} ${artistName ? "" : styles.cardHightPx}`}
       onMouseEnter={() => setIsHovered(true)}
