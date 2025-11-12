@@ -21,7 +21,7 @@ import {
 
 interface AlbumCardProps {
   title?: string;
-  album:any;
+  album?:any;
   artistName?: string;
   coverUrl: string | StaticImageData;
   onClick?: () => void;

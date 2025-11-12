@@ -31,7 +31,7 @@ const Albums: React.FC<AlbumsProps> = ({ onClick }) => {
         console.error("Error loading albums:", error);
       });
   }, []);
-
+d
   return (
     <div className="Grid">
       {albums.map((album) => (
