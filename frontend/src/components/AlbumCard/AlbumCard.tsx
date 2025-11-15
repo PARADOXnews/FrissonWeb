@@ -39,11 +39,9 @@ export default function AlbumCard({
   const [isLiked, setIsLiked] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  // random image assigned directly to initial state
-  const initialRandomCover = `/Images/Albums/${getRandomUnique(31, "albumCard")}.png`;
-  const [randomCover] = useState<string>(initialRandomCover);
-
-  const [imgKey, setImgKey] = useState<number>(0); // force re-render if needed
+  // random cover assigned once
+  const [randomCover] = useState(() => `/Images/Albums/${getRandomUnique(31, "albumCard")}.png`);
+  const [imgKey] = useState(0);
 
   const { refs, floatingStyles, context } = useFloating({
     open: isMenuOpen,
@@ -69,7 +67,6 @@ export default function AlbumCard({
   };
 
   const showHoverControls = (isHovered || isMenuOpen) && !hideHoverEfect;
-
   const floatingDivRef = useRef<HTMLDivElement | null>(null);
   if (floatingDivRef.current) refs.setFloating(floatingDivRef.current);
 

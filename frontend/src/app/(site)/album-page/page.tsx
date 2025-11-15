@@ -37,19 +37,14 @@ const ARTIST_NAMES = [
 export default function AlbumPage() {
   const { activeTab, setActiveTab } = useActiveTab();
 
-  const generateAlbums = () => {
-    const usedCoverNums: number[] = [];
-    return Array.from({ length: 8 }).map(() => {
-      const title = ALBUM_TITLES[Math.floor(Math.random() * ALBUM_TITLES.length)];
-      const artistName = ARTIST_NAMES[Math.floor(Math.random() * ARTIST_NAMES.length)];
-      const coverNum = getRandomUnique(31, "albumPage", usedCoverNums);
-      usedCoverNums.push(coverNum);
-      const coverUrl = `/Images/Albums/${coverNum}.png`;
-      return { title, artistName, coverUrl };
-    });
-  };
-
-  const albums = generateAlbums();
+  // generate 8 unique albums once
+  const albums = Array.from({ length: 8 }).map(() => {
+    const title = ALBUM_TITLES[Math.floor(Math.random() * ALBUM_TITLES.length)];
+    const artistName = ARTIST_NAMES[Math.floor(Math.random() * ARTIST_NAMES.length)];
+    const coverNum = getRandomUnique(31, "albumPage");
+    const coverUrl = `/Images/Albums/${coverNum}.png`;
+    return { title, artistName, coverUrl };
+  });
 
   return (
     <div style={{ padding: "20px" }}>
