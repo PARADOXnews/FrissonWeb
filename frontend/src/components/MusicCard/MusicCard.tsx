@@ -18,25 +18,25 @@ import {
   useInteractions,
 } from "@floating-ui/react";
 import Image from "next/image";
+import { getRandomUnique } from "../../utils/getRandomUnique";
 
 interface MusicCardProps {
   title: string;
   artist: string;
-  imageUrl: string;
   onClick?: () => void;
   hideHoverEfect?: boolean;
 }
 
-export default function MusicCard({
-  title,
-  artist,
-  imageUrl,
-  onClick,
-  hideHoverEfect = false,
-}: MusicCardProps) {
+export default function MusicCard({ title, artist, onClick, hideHoverEfect = false }: MusicCardProps) {
   const [isHovered, setIsHovered] = useState(false);
   const [isLiked, setIsLiked] = useState(false);
   const [open, setOpen] = useState(false);
+  const [randomImage, setRandomImage] = useState<string | null>(null);
+
+  useEffect(() => {
+    const imgNum = getRandomUnique(31);
+    setRandomImage(`/Images/Albums/${imgNum}.png`);
+  }, []); // runs once per mount, guarantees no duplicates if multiple cards use the same helper
 
   const { refs, floatingStyles, context } = useFloating({
     open,
@@ -57,14 +57,13 @@ export default function MusicCard({
   };
 
   const showHoverControls = (isHovered || open) && !hideHoverEfect;
-
-  // ⚡ fix floating ref
   const floatingDivRef = useRef<HTMLDivElement | null>(null);
+
   useEffect(() => {
-    if (floatingDivRef.current) {
-      refs.setFloating(floatingDivRef.current);
-    }
+    if (floatingDivRef.current) refs.setFloating(floatingDivRef.current);
   }, [refs, open]);
+
+  if (!randomImage) return null;
 
   return (
     <div
@@ -74,27 +73,17 @@ export default function MusicCard({
       onClick={onClick}
     >
       <div className={`${styles.imageWrapper} ${isHovered ? styles.hoveredImgWrapper : ""}`}>
-        <Image
-          src={imageUrl}
-          alt={`${title} — ${artist}`}
-          className={styles.musicImage}
-          width={234}
-          height={200}
-        />
+        <Image src={randomImage} alt={`${title} — ${artist}`} className={styles.musicImage} width={234} height={200} />
       </div>
 
       {showHoverControls && (
         <div className={styles.heartButton}>
           <div className={styles.btnWhiteBackground} onMouseDown={stop} onClick={stop}>
-            <HeartBtn
-              iconColor={isLiked ? "black" : "gray"}
-              liked={isLiked}
-              onToggle={() => setIsLiked((v) => !v)}
-            />
+            <HeartBtn iconColor={isLiked ? "black" : "gray"} liked={isLiked} onToggle={() => setIsLiked(v => !v)} />
           </div>
 
           <ThreeDotsBtn
-            ref={(el) => refs.setReference(el)} // ✅ fixed
+            ref={(el) => refs.setReference(el)}
             {...getReferenceProps({
               className: styles.threeDotsBtn,
               onMouseDown: stop,
@@ -111,7 +100,7 @@ export default function MusicCard({
       {open && (
         <FloatingPortal>
           <div
-            ref={floatingDivRef} // ⚡ fixed
+            ref={floatingDivRef}
             {...getFloatingProps({
               style: { ...floatingStyles, zIndex: 99999 },
               className: styles.threeDotsMenuCoordinates,

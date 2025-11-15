@@ -1,7 +1,7 @@
 "use client";
 
 import styles from "./ArtistCard.module.scss";
-import Image, { StaticImageData } from "next/image";
+import Image from "next/image";
 import { useState, useRef, useEffect } from "react";
 import HeartBtn from "../HeartBtn/HeartBtn";
 import ThreeDotsBtn from "../ThreeDotsBtn/ThreeDotsBtn";
@@ -22,24 +22,35 @@ import {
 interface ArtistCardProps {
   id: number | string;
   name: string;
-  artistUrl: string | StaticImageData;
   onClick?: () => void;
   hideHoverEfect?: boolean;
 }
 
+const usedImages = new Set<number>();
+
 export default function ArtistCard({
   id,
   name,
-  artistUrl,
   onClick,
   hideHoverEfect = false,
 }: ArtistCardProps) {
   const [isHovered, setIsHovered] = useState(false);
   const [isLiked, setIsLiked] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [imageUrl, setImageUrl] = useState<string | null>(null);
+  const [imgKey, setImgKey] = useState(0);
+
+  // pick a random album image (1–31) that hasn't been used
+  useEffect(() => {
+    let available = Array.from({ length: 31 }, (_, i) => i + 1).filter(n => !usedImages.has(n));
+    if (available.length === 0) available = Array.from({ length: 31 }, (_, i) => i + 1);
+    const pick = available[Math.floor(Math.random() * available.length)];
+    usedImages.add(pick);
+    setImageUrl(`/Images/Albums/${pick}.png`);
+    setImgKey(prev => prev + 1); // force re-render
+  }, []);
 
   const PLAYER_H = 96;
-
   const { refs, floatingStyles, context } = useFloating({
     open: isMenuOpen,
     onOpenChange: setIsMenuOpen,
@@ -47,11 +58,7 @@ export default function ArtistCard({
     strategy: "fixed",
     middleware: [
       offset(8),
-      flip({
-        padding: PLAYER_H,
-        fallbackPlacements: ["top-end"],
-        fallbackStrategy: "bestFit",
-      }),
+      flip({ padding: PLAYER_H, fallbackPlacements: ["top-end"], fallbackStrategy: "bestFit" }),
       shift({ padding: PLAYER_H }),
     ],
     whileElementsMounted: autoUpdate,
@@ -69,13 +76,12 @@ export default function ArtistCard({
 
   const showHoverControls = (isHovered || isMenuOpen) && !hideHoverEfect;
 
-  // Fixed floating ref
   const floatingDivRef = useRef<HTMLDivElement | null>(null);
   useEffect(() => {
-    if (floatingDivRef.current) {
-      refs.setFloating(floatingDivRef.current);
-    }
+    if (floatingDivRef.current) refs.setFloating(floatingDivRef.current);
   }, [refs, isMenuOpen]);
+
+  if (!imageUrl) return null;
 
   return (
     <div
@@ -87,7 +93,8 @@ export default function ArtistCard({
     >
       <div className={`${styles.imageWrapper} ${isHovered ? styles.hoveredImgWrapper : ""}`}>
         <Image
-          src={artistUrl}
+          key={imgKey}
+          src={imageUrl}
           alt={`${name} Artist`}
           className={styles.artistImage}
           width={234}
@@ -101,13 +108,12 @@ export default function ArtistCard({
             <HeartBtn
               iconColor={isLiked ? "black" : "gray"}
               liked={isLiked}
-              onToggle={() => setIsLiked((v) => !v)}
+              onToggle={() => setIsLiked(v => !v)}
             />
           </div>
 
-          {/* Fixed ref using callback */}
           <div
-            ref={(el) => refs.setReference(el)}
+            ref={el => refs.setReference(el)}
             {...getReferenceProps({
               className: styles.btnWhiteBackground,
               onMouseDown: stop,

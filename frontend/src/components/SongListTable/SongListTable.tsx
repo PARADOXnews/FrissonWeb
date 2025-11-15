@@ -15,10 +15,9 @@ import {
   FloatingPortal,
   size,
 } from "@floating-ui/react";
-import axios from "axios";
 
 type Song = {
-  id: number |string;
+  id: number | string;
   image: string;
   title: string;
   albumId: string;
@@ -26,14 +25,26 @@ type Song = {
   artist?: string;
 };
 
+const usedImages = new Set<number>();
+
+// Dummy name pools
+const songTitles = [
+  "Midnight Drive", "Echoes", "Golden Hour", "Lost in Thought", "Neon Sky",
+  "Waves", "Afterglow", "Chasing Shadows", "Solitude", "Firelight",
+  "Moonlit Path", "Dreamcatcher", "Fading Memories", "Aurora", "Gravity",
+  "Heartbeat", "Silver Lining", "Daybreak", "Velvet Night", "Starlight"
+];
+const albumNames = [
+  "Reflections", "Horizons", "Timeless", "Voyager", "Odyssey",
+  "Eclipse", "Momentum", "Reverie", "Paradox", "Infinity"
+];
+const artistNames = [
+  "Luna Ray", "Echo Smith", "Nova Star", "Aria Vale", "Kairo Moon",
+  "Solace", "Orion Blue", "Vera Sky", "Zephyr", "Aurora Lane"
+];
+
 export default function SongListTable() {
-  axios
-    .get("http://localhost:4000/music")
-    .then((res) => setSongs(res.data))
-    .catch((err) => console.error(err));
-
   const [songs, setSongs] = useState<Song[]>([]);
-
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeRowId, setActiveRowId] = useState<number | string | null>(null);
   const lastTriggerRef = useRef<HTMLElement | null>(null);
@@ -45,7 +56,6 @@ export default function SongListTable() {
   };
 
   const PLAYER_H = 96;
-
   const { refs, floatingStyles } = useFloating({
     open: menuOpen,
     onOpenChange: setMenuOpen,
@@ -81,9 +91,7 @@ export default function SongListTable() {
   });
 
   useEffect(() => {
-    if (floatingDivRef.current) {
-      refs.setFloating(floatingDivRef.current);
-    }
+    if (floatingDivRef.current) refs.setFloating(floatingDivRef.current);
   }, [refs, menuOpen]);
 
   useEffect(() => {
@@ -110,6 +118,29 @@ export default function SongListTable() {
     setMenuOpen((v) => !v);
   };
 
+  useEffect(() => {
+    const dummySongs: Song[] = [];
+    for (let i = 0; i < 20; i++) {
+      // pick a random image 1–31 not used
+      let available = Array.from({ length: 31 }, (_, i) => i + 1).filter(n => !usedImages.has(n));
+      if (available.length === 0) available = Array.from({ length: 31 }, (_, i) => i + 1);
+      const pick = available[Math.floor(Math.random() * available.length)];
+      usedImages.add(pick);
+
+      dummySongs.push({
+        id: i + 1,
+        title: songTitles[i % songTitles.length],
+        albumId: albumNames[i % albumNames.length],
+        duration: `${Math.floor(Math.random() * 4) + 2}:${Math.floor(Math.random() * 60)
+          .toString()
+          .padStart(2, "0")}`,
+        artist: artistNames[i % artistNames.length],
+        image: `/Images/Albums/${pick}.png`,
+      });
+    }
+    setSongs(dummySongs);
+  }, []);
+
   return (
     <div className={styles.table}>
       <table className={styles.list}>
@@ -128,12 +159,7 @@ export default function SongListTable() {
               <td className={styles.songId}>{i + 1}</td>
               <td className={styles.songName}>
                 <div className={styles.imageWrapper}>
-                  <Image
-                    src={song.image || photo}
-                    alt={song.title ?? "song"}
-                    width={48}
-                    height={48}
-                  />
+                  <Image src={song.image || photo} alt={song.title ?? "song"} width={48} height={48} />
                 </div>
                 <div className={styles.songNameBox}>
                   <span className={styles.songNameText}>{song.title}</span>
@@ -145,12 +171,7 @@ export default function SongListTable() {
               <td>
                 <span style={{ display: "inline-flex", gap: 8, alignItems: "center" }}>
                   <span onMouseDown={stop} onClick={stop}>
-                    <HeartBtn
-                      iconColor="gray"
-                      onToggle={() => {
-                        /* wire later */
-                      }}
-                    />
+                    <HeartBtn iconColor="gray" onToggle={() => {}} />
                   </span>
                   <span
                     onMouseDown={stop}

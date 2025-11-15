@@ -38,7 +38,7 @@ const Albums: React.FC<AlbumsProps> = ({ onClick }) => {
           key={album.id}
           title={album.title}
           artistName={album.artistName}
-          coverUrl={album.coverUrl}
+          // coverUrl={album.coverUrl}
           onClick={onClick} // <- pass the prop
         />
       ))}

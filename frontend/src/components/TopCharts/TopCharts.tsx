@@ -1,4 +1,6 @@
+// TopCharts.tsx
 "use client";
+
 import { useState, useRef, useEffect } from "react";
 import styles from "../TopCharts/TopCharts.module.scss";
 import Image from "next/image";
@@ -17,12 +19,12 @@ import {
   useRole,
   useInteractions,
 } from "@floating-ui/react";
+import { getRandomUnique } from "../../utils/getRandomUnique";
 
 interface TopChartsProps {
   title: string;
   artist: string;
   duration: number;
-  imageUrl: string;
 }
 
 function formatDuration(duration: number) {
@@ -31,9 +33,16 @@ function formatDuration(duration: number) {
   return `${minutes}:${seconds.toString().padStart(2, "0")}`;
 }
 
-export default function TopCharts({ title, artist, duration, imageUrl }: TopChartsProps) {
+export default function TopCharts({ title, artist, duration }: TopChartsProps) {
   const [isLiked, setIsLiked] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [randomImage, setRandomImage] = useState<string | null>(null);
+
+  // pick a unique image 1–31
+  useEffect(() => {
+    const imgNum = getRandomUnique(31, "topCharts");
+    setRandomImage(`/Images/Albums/${imgNum}.png`);
+  }, []);
 
   const { refs, floatingStyles, context } = useFloating({
     open: isMenuOpen,
@@ -54,7 +63,6 @@ export default function TopCharts({ title, artist, duration, imageUrl }: TopChar
     e.stopPropagation();
   };
 
-  // ✅ Fix for refs warning
   const referenceRef = useRef<HTMLDivElement | null>(null);
   const floatingDivRef = useRef<HTMLDivElement | null>(null);
 
@@ -66,11 +74,13 @@ export default function TopCharts({ title, artist, duration, imageUrl }: TopChar
     if (floatingDivRef.current) refs.setFloating(floatingDivRef.current);
   }, [refs, isMenuOpen]);
 
+  if (!randomImage) return null;
+
   return (
     <div className={styles.TopChartsDiv}>
       <div className={styles.imgAndWrapperBox}>
         <div className={styles.imageWrapper}>
-          <Image src={imageUrl} alt="Top Chart" className={styles.image} width={72} height={72} />
+          <Image src={randomImage} alt="Top Chart" className={styles.image} width={72} height={72} />
         </div>
         <div className={styles.textWrapper}>
           <p className={styles.textTop}>{title}</p>

@@ -1,3 +1,4 @@
+// AlbumCard.tsx
 "use client";
 
 import styles from "./AlbumCard.module.scss";
@@ -18,11 +19,12 @@ import {
   useInteractions,
   FloatingPortal,
 } from "@floating-ui/react";
+import { getRandomUnique } from "../../utils/getRandomUnique";
 
 interface AlbumCardProps {
   title?: string;
   artistName?: string;
-  coverUrl: string | StaticImageData;
+  coverUrl?: string | StaticImageData;
   onClick?: () => void;
   hideHoverEfect?: boolean;
   artist?: string;
@@ -38,6 +40,15 @@ export default function AlbumCard({
   const [isHovered, setIsHovered] = useState(false);
   const [isLiked, setIsLiked] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [randomCover, setRandomCover] = useState<string | null>(null);
+  const [imgKey, setImgKey] = useState<number>(0); // force re-render
+
+  useEffect(() => {
+    const imgNum = getRandomUnique(31, "albumCard");
+    const url = `/Images/Albums/${imgNum}.png`;
+    setRandomCover(url);
+    setImgKey(prev => prev + 1); // force Image re-render
+  }, []);
 
   const { refs, floatingStyles, context } = useFloating({
     open: isMenuOpen,
@@ -59,34 +70,34 @@ export default function AlbumCard({
 
   const stop = (e: React.SyntheticEvent) => {
     e.preventDefault();
-    e.stopPropagation(); // prevents hover buttons from triggering onClick
+    e.stopPropagation();
   };
 
   const showHoverControls = (isHovered || isMenuOpen) && !hideHoverEfect;
 
-  // Fix for Floating UI warning
   const floatingDivRef = useRef<HTMLDivElement | null>(null);
   useEffect(() => {
-    if (floatingDivRef.current) {
-      refs.setFloating(floatingDivRef.current);
-    }
+    if (floatingDivRef.current) refs.setFloating(floatingDivRef.current);
   }, [refs, isMenuOpen]);
+
+  if (!randomCover) return null;
 
   return (
     <div
       className={`${styles.card} ${artistName ? "" : styles.cardHightPx}`}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      onClick={onClick} // triggers parent tab change
+      onClick={onClick}
     >
       <div className={styles.imageWrapperBox}>
         <div className={`${styles.imageWrapper} ${isHovered ? styles.hoveredImgWrapper : ""}`}>
           <Image
-            src={coverUrl}
+            key={imgKey}
+            src={coverUrl || randomCover}
             alt={`${title}${artistName ? ` — ${artistName}` : ""}`}
             className={styles.musicImage}
-            fill
-          />
+            height={220}
+            width={234} />
         </div>
 
         {showHoverControls && (
@@ -118,7 +129,7 @@ export default function AlbumCard({
         {isMenuOpen && (
           <FloatingPortal>
             <div
-              ref={floatingDivRef} // fix applied here
+              ref={floatingDivRef}
               {...getFloatingProps({
                 style: { ...floatingStyles, zIndex: 9999 },
                 className: styles.threeDotsMeniuCoordinates,
