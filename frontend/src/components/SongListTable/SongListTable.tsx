@@ -29,18 +29,50 @@ const usedImages = new Set<number>();
 
 // Dummy name pools
 const songTitles = [
-  "Midnight Drive", "Echoes", "Golden Hour", "Lost in Thought", "Neon Sky",
-  "Waves", "Afterglow", "Chasing Shadows", "Solitude", "Firelight",
-  "Moonlit Path", "Dreamcatcher", "Fading Memories", "Aurora", "Gravity",
-  "Heartbeat", "Silver Lining", "Daybreak", "Velvet Night", "Starlight"
+  "Midnight Drive",
+  "Echoes",
+  "Golden Hour",
+  "Lost in Thought",
+  "Neon Sky",
+  "Waves",
+  "Afterglow",
+  "Chasing Shadows",
+  "Solitude",
+  "Firelight",
+  "Moonlit Path",
+  "Dreamcatcher",
+  "Fading Memories",
+  "Aurora",
+  "Gravity",
+  "Heartbeat",
+  "Silver Lining",
+  "Daybreak",
+  "Velvet Night",
+  "Starlight",
 ];
 const albumNames = [
-  "Reflections", "Horizons", "Timeless", "Voyager", "Odyssey",
-  "Eclipse", "Momentum", "Reverie", "Paradox", "Infinity"
+  "Reflections",
+  "Horizons",
+  "Timeless",
+  "Voyager",
+  "Odyssey",
+  "Eclipse",
+  "Momentum",
+  "Reverie",
+  "Paradox",
+  "Infinity",
 ];
 const artistNames = [
-  "Luna Ray", "Echo Smith", "Nova Star", "Aria Vale", "Kairo Moon",
-  "Solace", "Orion Blue", "Vera Sky", "Zephyr", "Aurora Lane"
+  "Luna Ray",
+  "Echo Smith",
+  "Nova Star",
+  "Aria Vale",
+  "Kairo Moon",
+  "Solace",
+  "Orion Blue",
+  "Vera Sky",
+  "Zephyr",
+  "Aurora Lane",
 ];
 
 export default function SongListTable() {
@@ -122,7 +154,7 @@ export default function SongListTable() {
     const dummySongs: Song[] = [];
     for (let i = 0; i < 20; i++) {
       // pick a random image 1–31 not used
-      let available = Array.from({ length: 31 }, (_, i) => i + 1).filter(n => !usedImages.has(n));
+      let available = Array.from({ length: 31 }, (_, i) => i + 1).filter((n) => !usedImages.has(n));
       if (available.length === 0) available = Array.from({ length: 31 }, (_, i) => i + 1);
       const pick = available[Math.floor(Math.random() * available.length)];
       usedImages.add(pick);
@@ -159,7 +191,12 @@ export default function SongListTable() {
               <td className={styles.songId}>{i + 1}</td>
               <td className={styles.songName}>
                 <div className={styles.imageWrapper}>
-                  <Image src={song.image || photo} alt={song.title ?? "song"} width={48} height={48} />
+                  <Image
+                    src={song.image || photo}
+                    alt={song.title ?? "song"}
+                    width={48}
+                    height={48}
+                  />
                 </div>
                 <div className={styles.songNameBox}>
                   <span className={styles.songNameText}>{song.title}</span>

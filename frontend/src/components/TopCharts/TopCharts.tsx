@@ -80,7 +80,13 @@ export default function TopCharts({ title, artist, duration }: TopChartsProps) {
     <div className={styles.TopChartsDiv}>
       <div className={styles.imgAndWrapperBox}>
         <div className={styles.imageWrapper}>
-          <Image src={randomImage} alt="Top Chart" className={styles.image} width={72} height={72} />
+          <Image
+            src={randomImage}
+            alt="Top Chart"
+            className={styles.image}
+            width={72}
+            height={72}
+          />
         </div>
         <div className={styles.textWrapper}>
           <p className={styles.textTop}>{title}</p>

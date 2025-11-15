@@ -27,7 +27,12 @@ interface MusicCardProps {
   hideHoverEfect?: boolean;
 }
 
-export default function MusicCard({ title, artist, onClick, hideHoverEfect = false }: MusicCardProps) {
+export default function MusicCard({
+  title,
+  artist,
+  onClick,
+  hideHoverEfect = false,
+}: MusicCardProps) {
   const [isHovered, setIsHovered] = useState(false);
   const [isLiked, setIsLiked] = useState(false);
   const [open, setOpen] = useState(false);
@@ -73,13 +78,23 @@ export default function MusicCard({ title, artist, onClick, hideHoverEfect = fal
       onClick={onClick}
     >
       <div className={`${styles.imageWrapper} ${isHovered ? styles.hoveredImgWrapper : ""}`}>
-        <Image src={randomImage} alt={`${title} — ${artist}`} className={styles.musicImage} width={234} height={200} />
+        <Image
+          src={randomImage}
+          alt={`${title} — ${artist}`}
+          className={styles.musicImage}
+          width={234}
+          height={200}
+        />
       </div>
 
       {showHoverControls && (
         <div className={styles.heartButton}>
           <div className={styles.btnWhiteBackground} onMouseDown={stop} onClick={stop}>
-            <HeartBtn iconColor={isLiked ? "black" : "gray"} liked={isLiked} onToggle={() => setIsLiked(v => !v)} />
+            <HeartBtn
+              iconColor={isLiked ? "black" : "gray"}
+              liked={isLiked}
+              onToggle={() => setIsLiked((v) => !v)}
+            />
           </div>
 
           <ThreeDotsBtn

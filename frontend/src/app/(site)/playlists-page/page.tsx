@@ -8,7 +8,6 @@ import PlaylistComponent from "@/components/PlaylistComponent/Playlist";
 import { StaticImageData } from "next/image";
 import NewsComponent from "@/components/NewsComponent/NewsComponent";
 import Table from "@/components/Table/Table";
-import banner from "@/../public/Images/playlistsPage/playlist.jpg";
 import { useActiveTab } from "@/components/Context/ActiveTabContext";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -70,8 +69,8 @@ export default function PlaylistPage() {
       {activeTab === 2 && albums.length > 0 && (
         <div className={`ormocdatotxmeti cflex ${styles.nugo}`}>
           <NewsComponent
-            imageUrl={banner}
-            plays="11 songs"
+            // imageUrl={banner}
+            //  plays="11 songs"
             title={albums[0]?.albumName || "playlist 1"}
           />
           <div className="ocdatormeti cflex">

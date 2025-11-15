@@ -7,9 +7,9 @@ export default function ExamplePage() {
   return (
     <main className={styles.main}>
       <NewsComponent
-        plays={"795,900 Plays"}
         title="Top Hit  Of the week"
-        imageUrl="/Images/NewsComponent/NewComponentTest.jpg"
+        // plays={"795,900 Plays"}
+        // imageUrl="/Images/NewsComponent/NewComponentTest.jpg"
       />
       <div className={styles.searchbar}>
         <Searchbar placeholder={"Search Top Hit"} />

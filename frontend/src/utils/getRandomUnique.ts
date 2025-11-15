@@ -1,16 +1,11 @@
-// utils/getRandomUnique.ts
-const usedNumbers: Record<string, Set<number>> = {};
+const usedNumbers: Record<string, number[]> = {};
 
-export function getRandomUnique(max: number, key = "default"): number {
-  if (!usedNumbers[key]) usedNumbers[key] = new Set<number>();
-
-  if (usedNumbers[key].size >= max) usedNumbers[key].clear(); // reset if all numbers used
-
-  let num: number;
+export function getRandomUnique(max: number, key: string, used?: number[]) {
+  if (!usedNumbers[key]) usedNumbers[key] = used || [];
+  let num;
   do {
-    num = Math.floor(Math.random() * max) + 1; // 1–max
-  } while (usedNumbers[key].has(num));
-
-  usedNumbers[key].add(num);
+    num = Math.floor(Math.random() * max) + 1;
+  } while (usedNumbers[key].includes(num));
+  usedNumbers[key].push(num);
   return num;
 }

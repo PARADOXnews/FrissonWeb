@@ -9,7 +9,7 @@ import Table from "@/components/Table/Table";
 import { usePathname } from "next/navigation";
 import { useActiveTab } from "@/components/Context/ActiveTabContext";
 import ArtistCard from "@/components/ArtistCard/ArtistCard";
-import axios from "axios";
+// import axiosfrom "axios";
 
 export default function ArtistPage() {
   const pathname = usePathname();
@@ -27,12 +27,7 @@ export default function ArtistPage() {
 
   const [res, setRes] = useState<Artist[]>([]);
 
-  useEffect(() => {
-    axios
-      .get("http://localhost:4000/authors")
-      .then((res) => setRes(res.data))
-      .catch((err) => console.log(err));
-  }, []);
+
 
   return (
     <main className={styles.main}>
@@ -45,7 +40,7 @@ export default function ArtistPage() {
                 <ArtistCard
                   key={i}
                   id={i}
-                  artistUrl={res[i].artistUrl}
+                  // artistUrl={res[i].artistUrl}
                   name={res[i].name}
                   onClick={() => setActiveTab(2)}
                 />
@@ -59,9 +54,9 @@ export default function ArtistPage() {
           <NewsComponent
             title="peggy gou"
             button="follow"
-            imageUrl="/Images/NewsComponent/peggyGou.jpg"
+            // imageUrl="/Images/NewsComponent/peggyGou.jpg"
             verified
-            plays={`745,090 fans`}
+            // plays={`745,090 fans`}
           />
           <Table />
         </>

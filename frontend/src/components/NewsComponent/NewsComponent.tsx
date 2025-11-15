@@ -30,13 +30,13 @@ export default function NewsComponent({ title, artist, verified, button }: NewsC
   const [imageUrl, setImageUrl] = useState<string>("");
 
   useEffect(() => {
-setPlays(Math.floor(Math.random() * 10_000_000) + 1);
+    setPlays(Math.floor(Math.random() * 10_000_000) + 1);
     const imgNum = getRandomUnique(9, "news"); // 1–9
     setImageUrl(`/Images/Banner/${imgNum}.png`);
   }, []);
 
   return (
-    <div className={styles.wrapper} >
+    <div className={styles.wrapper}>
       {imageUrl && (
         <Image
           src={imageUrl}

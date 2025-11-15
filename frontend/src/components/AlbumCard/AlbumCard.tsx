@@ -1,9 +1,8 @@
-// AlbumCard.tsx
 "use client";
 
 import styles from "./AlbumCard.module.scss";
 import Image, { StaticImageData } from "next/image";
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 import HeartBtn from "../HeartBtn/HeartBtn";
 import ThreeDotsBtn from "../ThreeDotsBtn/ThreeDotsBtn";
 import ThreeDotsList from "../ThreeDotsList/ThreeDotsList";
@@ -27,7 +26,6 @@ interface AlbumCardProps {
   coverUrl?: string | StaticImageData;
   onClick?: () => void;
   hideHoverEfect?: boolean;
-  artist?: string;
 }
 
 export default function AlbumCard({
@@ -40,15 +38,12 @@ export default function AlbumCard({
   const [isHovered, setIsHovered] = useState(false);
   const [isLiked, setIsLiked] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [randomCover, setRandomCover] = useState<string | null>(null);
-  const [imgKey, setImgKey] = useState<number>(0); // force re-render
 
-  useEffect(() => {
-    const imgNum = getRandomUnique(31, "albumCard");
-    const url = `/Images/Albums/${imgNum}.png`;
-    setRandomCover(url);
-    setImgKey(prev => prev + 1); // force Image re-render
-  }, []);
+  // random image assigned directly to initial state
+  const initialRandomCover = `/Images/Albums/${getRandomUnique(31, "albumCard")}.png`;
+  const [randomCover] = useState<string>(initialRandomCover);
+
+  const [imgKey, setImgKey] = useState<number>(0); // force re-render if needed
 
   const { refs, floatingStyles, context } = useFloating({
     open: isMenuOpen,
@@ -76,11 +71,7 @@ export default function AlbumCard({
   const showHoverControls = (isHovered || isMenuOpen) && !hideHoverEfect;
 
   const floatingDivRef = useRef<HTMLDivElement | null>(null);
-  useEffect(() => {
-    if (floatingDivRef.current) refs.setFloating(floatingDivRef.current);
-  }, [refs, isMenuOpen]);
-
-  if (!randomCover) return null;
+  if (floatingDivRef.current) refs.setFloating(floatingDivRef.current);
 
   return (
     <div
@@ -97,7 +88,8 @@ export default function AlbumCard({
             alt={`${title}${artistName ? ` — ${artistName}` : ""}`}
             className={styles.musicImage}
             height={220}
-            width={234} />
+            width={234}
+          />
         </div>
 
         {showHoverControls && (

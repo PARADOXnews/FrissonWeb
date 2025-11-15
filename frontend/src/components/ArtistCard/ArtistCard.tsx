@@ -28,12 +28,7 @@ interface ArtistCardProps {
 
 const usedImages = new Set<number>();
 
-export default function ArtistCard({
-  id,
-  name,
-  onClick,
-  hideHoverEfect = false,
-}: ArtistCardProps) {
+export default function ArtistCard({ id, name, onClick, hideHoverEfect = false }: ArtistCardProps) {
   const [isHovered, setIsHovered] = useState(false);
   const [isLiked, setIsLiked] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -42,12 +37,12 @@ export default function ArtistCard({
 
   // pick a random album image (1–31) that hasn't been used
   useEffect(() => {
-    let available = Array.from({ length: 31 }, (_, i) => i + 1).filter(n => !usedImages.has(n));
+    let available = Array.from({ length: 31 }, (_, i) => i + 1).filter((n) => !usedImages.has(n));
     if (available.length === 0) available = Array.from({ length: 31 }, (_, i) => i + 1);
     const pick = available[Math.floor(Math.random() * available.length)];
     usedImages.add(pick);
     setImageUrl(`/Images/Albums/${pick}.png`);
-    setImgKey(prev => prev + 1); // force re-render
+    setImgKey((prev) => prev + 1); // force re-render
   }, []);
 
   const PLAYER_H = 96;
@@ -108,12 +103,12 @@ export default function ArtistCard({
             <HeartBtn
               iconColor={isLiked ? "black" : "gray"}
               liked={isLiked}
-              onToggle={() => setIsLiked(v => !v)}
+              onToggle={() => setIsLiked((v) => !v)}
             />
           </div>
 
           <div
-            ref={el => refs.setReference(el)}
+            ref={(el) => refs.setReference(el)}
             {...getReferenceProps({
               className: styles.btnWhiteBackground,
               onMouseDown: stop,
