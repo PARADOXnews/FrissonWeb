@@ -4,7 +4,7 @@ import NewsComponent from "@/components/NewsComponent/NewsComponent";
 import "../../../styles/Defaults/defaultGrid.scss";
 import "../../../styles/Defaults/default.scss";
 import { useActiveTab } from "@/components/Context/ActiveTabContext";
-import styles from "./page.module.scss"
+// import styles from "./page.module.scss"
 import Table from "@/components/Table/Table";
 import AlbumCard from "@/components/AlbumCard/AlbumCard";
 
@@ -22,7 +22,7 @@ export default function AlbumPage() {
 
   return (
     <>
-      <div className={styles.cards}>
+      <div className={`Grid`}>
         {activeTab === 1 &&
           songs.map((song, i) => (
             <AlbumCard
