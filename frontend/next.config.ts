@@ -3,7 +3,7 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
-  // output: "export",
+  output: "export",
   outputFileTracingRoot: __dirname,
 
   sassOptions: {
@@ -11,7 +11,7 @@ const nextConfig: NextConfig = {
   },
 
   images: {
-    domains: ["frisson-music-app.s3.eu-north-1.amazonaws.com"], // whitelist external host
+    // domains: ["frisson-music-app.s3.eu-north-1.amazonaws.com"], // whitelist external host
     unoptimized: true, // disables Next.js image optimization (required for static export)
   },
 
