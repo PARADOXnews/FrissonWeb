@@ -27,12 +27,17 @@ export default function ArtistPage() {
 
   const [res, setRes] = useState<Artist[]>([]);
 
-  useEffect(() => {
-    axios
-      .get("http://localhost:4000/authors")
-      .then((res) => setRes(res.data))
-      .catch((err) => console.log(err));
-  }, []);
+
+  const songs = [
+    { id: 1, name: "ed sheeran", coverUrl: "/Images/Albums/7.png" },
+    { id: 2, name: "bellie Eilish", coverUrl: "/Images/Albums/8.png" },
+    { id: 3, name: "drake", coverUrl: "/Images/Albums/9.png" },
+    { id: 4, name: "Biggie", coverUrl: "/Images/Albums/10.png" },
+    { id: 5, name: "tupac", coverUrl: "/Images/Albums/11.png" },
+    { id: 6, name: "selena gomez", coverUrl: "/Images/Albums/12.png" },
+  ];
+
+
 
   return (
     <main className={styles.main}>
@@ -40,16 +45,14 @@ export default function ArtistPage() {
         <div className={styles.artistPage}>
           <h4>trending now</h4>
           <div className={styles.artistCard}>
-            {res.length > 0 &&
-              res.map((_, i) => (
-                <ArtistCard
-                  key={i}
-                  id={i}
-                  artistUrl={res[i].artistUrl}
-                  name={res[i].name}
-                  onClick={() => setActiveTab(2)}
-                />
-              ))}
+            {songs.map((song, i) => (
+              <ArtistCard
+                key={song.id}
+                name={song.name}
+                artistUrl={song.coverUrl}
+                onClick={() => setActiveTab(2)}
+              />
+            ))}
           </div>
         </div>
       )}

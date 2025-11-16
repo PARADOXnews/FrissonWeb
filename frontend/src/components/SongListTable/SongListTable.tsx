@@ -27,15 +27,34 @@ type Song = {
 };
 
 export default function SongListTable() {
-useEffect(() => {
-  axios
-    .get("http://localhost:4000/music")
-    .then((res) => setSongs(res.data))
-    .catch((err) => console.error(err));
-}, []);
 
 
-  const [songs, setSongs] = useState<Song[]>([]);
+
+const songs = [
+  { id: 1,  name: "ed sheeran",     coverUrl: "/Images/Albums/13.png", duration: "4:24" },
+  { id: 2,  name: "bellie Eilish",  coverUrl: "/Images/Albums/14.png", duration: "2:14" },
+  { id: 3,  name: "drake",          coverUrl: "/Images/Albums/15.png", duration: "1:52" },
+  { id: 4,  name: "Biggie",         coverUrl: "/Images/Albums/16.png", duration: "2:56" },
+  { id: 5,  name: "tupac",          coverUrl: "/Images/Albums/17.png", duration: "3:59" },
+  { id: 6,  name: "selena gomez",   coverUrl: "/Images/Albums/18.png", duration: "1:32" },
+  { id: 7,  name: "weeknd",         coverUrl: "/Images/Albums/19.png", duration: "2:41" },
+  { id: 8,  name: "dua lipa",       coverUrl: "/Images/Albums/20.png", duration: "3:12" },
+  { id: 9,  name: "eminem",         coverUrl: "/Images/Albums/21.png", duration: "4:03" },
+  { id:10,  name: "kendrick",       coverUrl: "/Images/Albums/22.png", duration: "3:25" },
+  { id:11,  name: "frank ocean",    coverUrl: "/Images/Albums/23.png", duration: "2:48" },
+  { id:12,  name: "lana del rey",   coverUrl: "/Images/Albums/24.png", duration: "4:11" },
+  { id:13,  name: "travis scott",   coverUrl: "/Images/Albums/25.png", duration: "3:07" },
+  { id:14,  name: "post malone",    coverUrl: "/Images/Albums/26.png", duration: "2:59" },
+  { id:15,  name: "olivia rodrigo", coverUrl: "/Images/Albums/27.png", duration: "1:46" },
+  { id:16,  name: "sza",            coverUrl: "/Images/Albums/28.png", duration: "3:18" },
+  { id:17,  name: "rihanna",        coverUrl: "/Images/Albums/29.png", duration: "2:33" },
+  { id:18,  name: "ariana grande",  coverUrl: "/Images/Albums/30.png", duration: "2:04" },
+];
+
+
+
+
+  // const [songs, setSongs] = useState<Song[]>([]);
 
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeRowId, setActiveRowId] = useState<number | string | null>(null);
@@ -132,18 +151,18 @@ useEffect(() => {
               <td className={styles.songName}>
                 <div className={styles.imageWrapper}>
                   <Image
-                    src={song.image || photo}
-                    alt={song.title ?? "song"}
+                    src={song.coverUrl || photo}
+                    alt={song.name ?? "song"}
                     width={48}
                     height={48}
                   />
                 </div>
                 <div className={styles.songNameBox}>
-                  <span className={styles.songNameText}>{song.title}</span>
-                  <span className={styles.songArtistText}>{song.artist}</span>
+                  <span className={styles.songNameText}>{song.name}</span>
+                  <span className={styles.songArtistText}>{song.name}</span>
                 </div>
               </td>
-              <td>{song.albumId}</td>
+              <td>{song.id}</td>
               <td>{song.duration}</td>
               <td>
                 <span style={{ display: "inline-flex", gap: 8, alignItems: "center" }}>

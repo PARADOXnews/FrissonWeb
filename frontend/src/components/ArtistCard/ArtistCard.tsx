@@ -20,7 +20,7 @@ import {
 } from "@floating-ui/react";
 
 interface ArtistCardProps {
-  id: number | string;
+  id?: number | string;
   name: string;
   artistUrl: string | StaticImageData;
   onClick?: () => void;

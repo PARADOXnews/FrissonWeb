@@ -13,7 +13,12 @@ const albumPhoto = "/Images/table/albumphoto.png";
 export default function Table() {
   const [activeTab, setActiveTab] = useState(1);
 
-
+  const songs = [
+    { id: 1, name: "rihanna", coverUrl: "/Images/Albums/17.png" },
+    { id: 2, name: "ariana grande", coverUrl: "/Images/Albums/18.png" },
+    { id: 3, name: "future", coverUrl: "/Images/Albums/19.png" },
+    { id: 4, name: "metro boomin", coverUrl: "/Images/Albums/20.png" }
+  ]
 
   return (
     <div className={styles.table}>
@@ -35,17 +40,18 @@ export default function Table() {
 
       {activeTab === 2 && (
         <div className={styles.album}>
-          <AlbumCard title="no information" coverUrl={albumPhoto} />
-          <AlbumCard title="no information" coverUrl={albumPhoto} />
-          <AlbumCard title="no information" coverUrl={albumPhoto} />
-          <AlbumCard title="no information" coverUrl={albumPhoto} />
+          {
+            songs.map((song, i) => (
+              <AlbumCard key={song.id} title={song.name} coverUrl={song.coverUrl} />
+            ))
+          }
         </div>
       )}
 
       {activeTab === 3 && (
         <div className={styles.bio}>
           <div className={styles.bioPic}>
-            <Image src={albumPhoto} alt="bio photo" width={400} height={400} />
+            <Image src="/Images/Albums/24.png" alt="bio photo" width={400} height={400} />
           </div>
           <div className={styles.bioTexts}>
             <h1>peggy gou</h1>
