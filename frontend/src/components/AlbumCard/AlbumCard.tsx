@@ -21,17 +21,17 @@ import {
 
 interface AlbumCardProps {
   title?: string;
-  album?:any;
+  album?: string | number;
   artistName?: string;
   coverUrl: string | StaticImageData;
   onClick?: () => void;
   hideHoverEfect?: boolean;
   artist?: string;
 }
-// axios get album-page/id 
-// changable id 
+// axios get album-page/id
+// changable id
 export default function AlbumCard({
-  album,
+  // album,
   title,
   artistName,
   coverUrl,
@@ -41,7 +41,7 @@ export default function AlbumCard({
   const [isHovered, setIsHovered] = useState(false);
   const [isLiked, setIsLiked] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  console.log(album)
+  //  console.log(album);
 
   const { refs, floatingStyles, context } = useFloating({
     open: isMenuOpen,
@@ -76,7 +76,8 @@ export default function AlbumCard({
     }
   }, [refs, isMenuOpen]);
 
-  return ( // user router for changing pages
+  return (
+    // user router for changing pages
     <div
       className={`${styles.card} ${artistName ? "" : styles.cardHightPx}`}
       onMouseEnter={() => setIsHovered(true)}

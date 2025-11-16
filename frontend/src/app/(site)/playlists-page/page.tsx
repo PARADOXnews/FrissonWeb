@@ -59,7 +59,7 @@ export default function PlaylistPage() {
                 title={album.albumName || "playlist"}
                 imageUrl={album.imageUrl}
                 onClick={() => setActiveTab(2)}
-                onEdit={() => console.log(`Edit playlist ${album.albumName}`)}
+                // onEdit={() => console.log(`Edit playlist ${album.albumName}`)}
                 onDelete={() => setAlbums((prev) => prev.filter((a) => a.id !== album.id))}
               />
             ))}

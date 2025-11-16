@@ -26,7 +26,7 @@ export default function Searchbar({ onChange, placeholder = "Search..." }: Props
         placeholder={placeholder}
         onKeyDown={(e) => {
           if (e.key === "Enter") {
-            console.log("გაუშვი search ფუნქცია:", e.currentTarget.value);
+            //console.log("გაუშვი search ფუნქცია:", e.currentTarget.value);
           }
         }}
       />

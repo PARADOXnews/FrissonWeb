@@ -24,7 +24,7 @@ export default function AlbumPage() {
     <>
       <div className={`Grid`}>
         {activeTab === 1 &&
-          songs.map((song, i) => (
+          songs.map((song) => (
             <AlbumCard
               key={song.id}
               title={song.name}

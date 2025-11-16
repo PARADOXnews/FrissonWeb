@@ -1,7 +1,7 @@
 "use client";
 
 import NewsComponent from "@/components/NewsComponent/NewsComponent";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 // import { Colors } from "../../../../styles/colors.enum";
 import styles from "./page.module.scss";
 import Table from "@/components/Table/Table";
@@ -9,7 +9,6 @@ import Table from "@/components/Table/Table";
 import { usePathname } from "next/navigation";
 import { useActiveTab } from "@/components/Context/ActiveTabContext";
 import ArtistCard from "@/components/ArtistCard/ArtistCard";
-import axios from "axios";
 
 export default function ArtistPage() {
   const pathname = usePathname();
@@ -19,14 +18,13 @@ export default function ArtistPage() {
     setActiveTab(1);
   }, [pathname, setActiveTab]);
 
-  type Artist = {
-    id: number | string;
-    artistUrl: string;
-    name: string;
-  };
+  // type Artist = {
+  //   id: number | string;
+  //   artistUrl: string;
+  //   name: string;
+  // };
 
-  const [res, setRes] = useState<Artist[]>([]);
-
+  // const [res, setRes] = useState<Artist[]>([]);
 
   const songs = [
     { id: 1, name: "ed sheeran", coverUrl: "/Images/Albums/7.png" },
@@ -37,15 +35,13 @@ export default function ArtistPage() {
     { id: 6, name: "selena gomez", coverUrl: "/Images/Albums/12.png" },
   ];
 
-
-
   return (
     <main className={styles.main}>
       {activeTab === 1 && (
         <div className={styles.artistPage}>
           <h4>trending now</h4>
           <div className={styles.artistCard}>
-            {songs.map((song, i) => (
+            {songs.map((song) => (
               <ArtistCard
                 key={song.id}
                 name={song.name}

@@ -8,7 +8,6 @@ import SongListTable from "../SongListTable/SongListTable";
 import AlbumCard from "../AlbumCard/AlbumCard";
 
 // your image should be at: frontend/public/Images/table/albumphoto.png
-const albumPhoto = "/Images/table/albumphoto.png";
 
 export default function Table() {
   const [activeTab, setActiveTab] = useState(1);
@@ -17,8 +16,8 @@ export default function Table() {
     { id: 1, name: "rihanna", coverUrl: "/Images/Albums/17.png" },
     { id: 2, name: "ariana grande", coverUrl: "/Images/Albums/18.png" },
     { id: 3, name: "future", coverUrl: "/Images/Albums/19.png" },
-    { id: 4, name: "metro boomin", coverUrl: "/Images/Albums/20.png" }
-  ]
+    { id: 4, name: "metro boomin", coverUrl: "/Images/Albums/20.png" },
+  ];
 
   return (
     <div className={styles.table}>
@@ -40,11 +39,9 @@ export default function Table() {
 
       {activeTab === 2 && (
         <div className={styles.album}>
-          {
-            songs.map((song, i) => (
-              <AlbumCard key={song.id} title={song.name} coverUrl={song.coverUrl} />
-            ))
-          }
+          {songs.map((song) => (
+            <AlbumCard key={song.id} title={song.name} coverUrl={song.coverUrl} />
+          ))}
         </div>
       )}
 

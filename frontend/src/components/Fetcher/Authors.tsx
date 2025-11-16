@@ -23,7 +23,7 @@ const Albums: React.FC = () => {
     axios
       .get<Album[]>("https://frisson-music-app.s3.eu-north-1.amazonaws.com/albums")
       .then((response) => {
-        console.log("📦 Received from backend:", response.data);
+        //console.log("📦 Received from backend:", response.data);
         setAlbums(response.data);
       })
       .catch((error) => {

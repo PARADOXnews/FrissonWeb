@@ -104,7 +104,7 @@ export default function ThreeDotsList({ withoutPlaylist }: { withoutPlaylist?: b
               className={styles.playListboxContentForm}
               onSubmit={(e) => {
                 e.preventDefault();
-                console.log("Selected playlists:", selected);
+                //console.log("Selected playlists:", selected);
               }}
             >
               {playlists.map((pl) => (

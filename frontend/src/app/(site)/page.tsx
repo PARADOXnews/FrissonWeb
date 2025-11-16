@@ -42,10 +42,6 @@ const songs = [
   { id: 31, name: "coldplay", song: "Adventure of a Lifetime", coverUrl: "/Images/Albums/31.png" },
 ];
 
-
-
-
-
 export default function Home() {
   return (
     <main className={styles.main}>
@@ -67,12 +63,7 @@ export default function Home() {
           {" "}
           {/*styles.topHitsSectionCardsBox*/}
           {songs.slice(0, 8).map((song, i) => (
-            <MusicCard
-              key={i}
-              title={song.name}
-              artist="Genesys II"
-              imageUrl={song.coverUrl}
-            />
+            <MusicCard key={i} title={song.name} artist="Genesys II" imageUrl={song.coverUrl} />
           ))}
         </div>
       </section>
@@ -86,8 +77,8 @@ export default function Home() {
         </div>
         <div className={` scrollbar`}>
           {[...Array(6)].map((_, i) => {
-            const first = songs[i * 2 % songs.length];
-            const second = songs[i * 2 + 1 % songs.length];
+            const first = songs[(i * 2) % songs.length];
+            const second = songs[i * 2 + (1 % songs.length)];
             return (
               <div className={styles.topCharts} key={i}>
                 <TopCharts
@@ -105,8 +96,6 @@ export default function Home() {
               </div>
             );
           })}
-
-
         </div>
       </section>
 
@@ -118,13 +107,8 @@ export default function Home() {
           </Link>
         </div>
         <div className={`scrollbar`}>
-          {songs.slice(17,25).map((song, i) => (
-            <AlbumCard
-              key={i}
-              title={song.song}
-              artist={song.name}
-              coverUrl={song.coverUrl}
-            />
+          {songs.slice(17, 25).map((song, i) => (
+            <AlbumCard key={i} title={song.song} artist={song.name} coverUrl={song.coverUrl} />
           ))}
         </div>
       </section>
@@ -137,13 +121,8 @@ export default function Home() {
           </Link>
         </div>
         <div className={`scrollbar`}>
-          {songs.slice(5,13).map((song, i) => (
-            <ArtistCard
-              key={i}
-              id={i}
-              name={song.name}
-              artistUrl={song.coverUrl}
-            />
+          {songs.slice(5, 13).map((song, i) => (
+            <ArtistCard key={i} id={i} name={song.name} artistUrl={song.coverUrl} />
           ))}
         </div>
       </section>
