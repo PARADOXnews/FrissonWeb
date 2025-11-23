@@ -21,15 +21,14 @@ import {
 
 interface AlbumCardProps {
   title?: string;
-  album?:any;
+  album:any;
   artistName?: string;
   coverUrl: string | StaticImageData;
   onClick?: () => void;
   hideHoverEfect?: boolean;
   artist?: string;
 }
-// axios get album-page/id 
-// changable id 
+
 export default function AlbumCard({
   album,
   title,
@@ -76,7 +75,7 @@ export default function AlbumCard({
     }
   }, [refs, isMenuOpen]);
 
-  return ( // user router for changing pages
+  return (
     <div
       className={`${styles.card} ${artistName ? "" : styles.cardHightPx}`}
       onMouseEnter={() => setIsHovered(true)}
