@@ -3,14 +3,8 @@
 import { useParams } from "next/navigation";
 
 export default function AlbumId() {
-   const params = useParams()
+  const params = useParams();
 
-   // console.log(params.id)
-   return (
-
-      <div style={{color:"white"}}>
-         {params.id}
-      </div>
-   )
-
+  // console.log(params.id)
+  return <div style={{ color: "white" }}>{params.id}</div>;
 }
