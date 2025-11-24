@@ -18,7 +18,7 @@ import {
 import axios from "axios";
 
 type Song = {
-  id: number | string;
+  id: number |string;
   image: string;
   title: string;
   albumId: string;
@@ -27,12 +27,13 @@ type Song = {
 };
 
 export default function SongListTable() {
-  useEffect(() => {
-    axios
-      .get("http://localhost:4000/music")
-      .then((res) => setSongs(res.data))
-      .catch((err) => console.error(err));
-  }, []);
+useEffect(() => {
+  axios
+    .get("http://localhost:4000/music")
+    .then((res) => setSongs(res.data))
+    .catch((err) => console.error(err));
+}, []);
+
 
   const [songs, setSongs] = useState<Song[]>([]);
 

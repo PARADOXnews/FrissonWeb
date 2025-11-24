@@ -13,6 +13,8 @@ const albumPhoto = "/Images/table/albumphoto.png";
 export default function Table() {
   const [activeTab, setActiveTab] = useState(1);
 
+
+
   return (
     <div className={styles.table}>
       {/* Tabs */}
