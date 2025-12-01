@@ -29,7 +29,7 @@ export default function ArtistPage() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:4000/author")
+      .get("http://localhost:4000/authors")
       .then((res) => setRes(res.data))
       .catch((err) => console.log(err));
   }, []);
