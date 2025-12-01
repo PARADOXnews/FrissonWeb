@@ -25,6 +25,8 @@ export default function ArtistPage() {
 
   const [res, setRes] = useState<Artist[]>([]);
 
+
+
   // NEW FETCH ONLY – using authors.tsx logic
   useEffect(() => {
     axios
