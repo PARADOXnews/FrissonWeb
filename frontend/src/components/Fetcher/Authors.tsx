@@ -1,39 +1,33 @@
+// Artists.tsx
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Image from "next/image";
 
-interface Album {
+interface Author {
   id: number;
   name: string;
-  avatarFileName: string;
-  coverUrl: string;
-  cover?: string;
-  title?: string;
-  releaseDate?: string;
-  author?: {
-    id: number;
-    name: string;
-  };
+  artistUrl: string;
+  bio?: string;
 }
 
-const Albums: React.FC = () => {
-  const [albums, setAlbums] = useState<Album[]>([]);
+const Artists: React.FC = () => {
+  const [artists, setArtists] = useState<Author[]>([]);
 
   useEffect(() => {
     axios
-      .get<Album[]>("https://frisson-music-app.s3.eu-north-1.amazonaws.com/albums")
+      .get<Author[]>("http://localhost:4000/authors")
       .then((response) => {
-        console.log("📦 Received from backend:", response.data);
-        setAlbums(response.data);
+        console.log("🎨 Received from backend:", response.data);
+        setArtists(response.data);
       })
       .catch((error) => {
-        console.error("Error loading albums:", error);
+        console.error("Error loading authors:", error);
       });
   }, []);
 
   return (
     <div style={{ padding: "20px", color: "white" }}>
-      <h1>🎵 Albums</h1>
+      <h1>🎨 Artists</h1>
       <div
         style={{
           display: "grid",
@@ -41,9 +35,9 @@ const Albums: React.FC = () => {
           gap: "20px",
         }}
       >
-        {albums.map((album) => (
+        {artists.map((artist) => (
           <div
-            key={album.id}
+            key={artist.id}
             style={{
               backgroundColor: "#1e1e1e",
               padding: "15px",
@@ -51,17 +45,17 @@ const Albums: React.FC = () => {
               textAlign: "center",
             }}
           >
-            {album.coverUrl && (
+            {artist.artistUrl && (
               <Image
-                src={album.coverUrl}
-                alt={album.title || "cover"}
-                width="200"
+                src={artist.artistUrl}
+                alt={artist.name}
+                width={200}
+                height={200}
                 style={{ borderRadius: "10px", marginBottom: "10px" }}
               />
             )}
-            <h3>{album.name}</h3>
-            <p>{album.avatarFileName}</p>
-            {album.author?.name && <p style={{ color: "#aaa" }}>by {album.author.name}</p>}
+            <h3>{artist.name}</h3>
+            {artist.bio && <p style={{ color: "#aaa" }}>{artist.bio}</p>}
           </div>
         ))}
       </div>
@@ -69,4 +63,4 @@ const Albums: React.FC = () => {
   );
 };
 
-export default Albums;
+export default Artists;
