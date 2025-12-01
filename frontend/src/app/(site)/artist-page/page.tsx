@@ -2,10 +2,8 @@
 
 import NewsComponent from "@/components/NewsComponent/NewsComponent";
 import { useEffect, useState } from "react";
-// import { Colors } from "../../../../styles/colors.enum";
 import styles from "./page.module.scss";
 import Table from "@/components/Table/Table";
-// import AlbumCard from "@/components/AlbumCard/AlbumCard";
 import { usePathname } from "next/navigation";
 import { useActiveTab } from "@/components/Context/ActiveTabContext";
 import ArtistCard from "@/components/ArtistCard/ArtistCard";
@@ -27,11 +25,18 @@ export default function ArtistPage() {
 
   const [res, setRes] = useState<Artist[]>([]);
 
+  // NEW FETCH ONLY – using authors.tsx logic
   useEffect(() => {
     axios
-      .get("http://localhost:4000/authors")
-      .then((res) => setRes(res.data))
-      .catch((err) => console.log(err));
+      .get("http://localhost:4000/author")
+      .then((response) => {
+        if (response.data?.data) {
+          setRes(response.data.data);
+        }
+      })
+      .catch((error) => {
+        console.error("Fetch failed:", error);
+      });
   }, []);
 
   return (
@@ -41,12 +46,12 @@ export default function ArtistPage() {
           <h4>trending now</h4>
           <div className={styles.artistCard}>
             {res.length > 0 &&
-              res.map((_, i) => (
+              res.map((item, i) => (
                 <ArtistCard
                   key={i}
-                  id={i}
-                  artistUrl={res[i].artistUrl}
-                  name={res[i].name}
+                  id={item.id}
+                  artistUrl={item.artistUrl}
+                  name={item.name}
                   onClick={() => setActiveTab(2)}
                 />
               ))}
